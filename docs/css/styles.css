@@ -1,79 +1,256 @@
-:root {
-  --dark: #000;
-  --course: #F4E408;
-  --light: #fff;
-}
-body {
-  background-color: var(--dark);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-  color: var(--light);
-  font-family: monospace;
-  font-size: 1.5em;
-  line-height: 1.5;
+html, body{
   margin: 0;
+  font-size: 16px;
+  counter-reset: counter; 
+  animation: mouseanimation 2s infinite;
+  animation-direction: alternate;
 }
-main {
-  max-width: 800px;
-  margin: 10vh auto;
+
+h1{
+  text-align: center;
 }
-header {
-  background: var(--course);
-  color: var(--dark);
-  height: 30vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+section{
+  width: 100%;
+  position: relative;
 }
-h1 {
-  font-size: 5em;
+
+section h2{
+  text-align: center;
 }
-h2 {
-  font-size: 2em;
-  margin-top: 1.5em;
+
+/* Fish section */
+section:nth-of-type(1){
+  background: linear-gradient(to top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+  height: 100vh;
 }
-ul {
-  display: flex;
-  /flex-wrap: wrap;
-  justify-content: space-between;
-  list-style-type: none;
+
+
+section:nth-of-type(1) p:first-of-type::after{
+  content: "🕶";
+  position: absolute;
+  display: block;
+  transform: scale(.5);
+  top: -12px;
+  right: 60px;
+  opacity: 0;
+  transition: opacity .8s;
+}
+section:nth-of-type(1) p:first-of-type:hover::before{
+  content: attr(data-line);
+  position: absolute;
+  top: -120px;
+  transform: scale(.5);
+  white-space: nowrap;
+  /* font-size: .5em; */
+}
+
+section:nth-of-type(1) p:first-of-type:hover::after{
+  opacity: 1;
+}
+
+/* the emoji on the left side */
+section p:first-of-type{
+  font-size: 10em;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* The fish emoji */
+section:nth-of-type(1) p:first-of-type{
+  left: 20%;
+  display: block;
+  animation-name: fish;
+  animation-direction: alternate;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  filter: hue-rotate(0deg);
+  transition: 4s;
+}
+
+/* Crab emoji */
+section:nth-of-type(1) p:nth-of-type(2){
+  font-size: 10em;
+  clip-path: circle(3%);
+  position: absolute;
+  bottom: 0;
+  transition: .4s;
+}
+span::before{
+  content: "Dont hover the orange dot";
+  position: absolute;
+  top: 50%;
+  left: 5%;
+}
+
+
+section:nth-of-type(1) p:nth-of-type(2):hover{
+  animation-name: bounce;
+  animation-delay: .4s;
+  animation-duration: .3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  transition: .3s;
+}
+
+section:nth-of-type(1) p:nth-of-type(2):hover ~ span::before{
+  animation-name: lines;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  transition: .4s;
+}
+
+
+section:nth-of-type(1) p:nth-of-type(2):hover{
+  clip-path: circle(100%)
+}
+
+
+
+/* The bubble */
+section:nth-last-of-type(1) div {
+  /* border: solid 1px rgb(231, 254, 255); */
+  border-radius: 50%;
+  width: 17em;
+  height: 17em;
+  position: absolute;
+  zoom: 100%;
+  background: radial-gradient(ellipse at center, rgba(208, 36, 36, 0) 50%, #54a9ed 100%);
+  animation-name: menuBubble;
+  animation-direction: alternate;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  -webkit-box-shadow: 0 0 30px #54a9ed;
+  right: 20%;
+  top: 50%;
+  color: white;
+  opacity: 0;
+  transition: opacity .4s; 
+  backdrop-filter: hue-rotate(20deg);
+  mix-blend-mode: color-dodge;
+}
+section:nth-last-of-type(1) div ul{
+  /* padding: 2em; */
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
   padding: 0;
-  margin: 0 -1rem;
-}
-ul li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
-}
-ul img {
-  border: 2px solid var(--light);
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-img {
-  max-width: 100%;
+  width: fit-content;
 }
 
-section#lecturers img {
-  border-radius: 100%;
-  margin-right: 1em;
+section:nth-last-of-type(1) div ul li{
+  counter-increment: counter;
+
 }
 
-.button {
-  background: var(--light);
-  color: var(--dark);
-  padding: 1em;
+section:nth-last-of-type(1) div ul li::before{
+  content: counter(counter);
 }
 
-.examples img {
-  max-width: 25vh;
+/* menu */
+input[type=checkbox]{
+  display: none;
 }
 
-a,
-a:visited {
-  color: var(--course);
+input[type=checkbox]:checked ~ div {
+  opacity: 1;
 }
 
-footer {
-  font-style: italic;
+input[type=checkbox]:checked ~ label[for=chest]::after {
+  transform: rotate(-45deg);
 }
+label[for=chest]{
+  width: 10em;
+  height: 7em;
+  background: #a16a1f;
+  border: 5px #29241d solid;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 30%;
+}
+
+label[for=chest]:hover{
+  cursor: pointer;
+}
+
+label[for=chest]::after{
+  content: "";
+  width: 10em;
+  height: 2em;
+  background: #a16a1f;
+  border: 5px #29241d solid;
+  position: relative;
+  top: -2em;
+  left: -5px;
+  display: block;
+  transform-origin: left 82%;
+  transition: .3s;
+}
+
+/* Warm styles */
+.hot section:nth-of-type(1) p:first-of-type{
+  filter: hue-rotate(200deg);
+}
+
+/* animations */
+@keyframes menuBubble {
+  0% {transform: translateY(-40%);   -webkit-box-shadow: 0 0 30px #54a9ed;}
+  100% {transform:translateY(-60%); -webkit-box-shadow: 0 0 80px #69abdf;}
+}
+
+@keyframes fish {
+  0% {transform: translateY(-60%);}
+  100% {transform:translateY(-40%);}
+}
+
+@keyframes lines {
+  0% {
+    content: "I feel stressed";
+    font-size: 2em;
+    font-variant: small-caps slashed-zero;
+  }
+  50%{
+    font-size: 1.5em;
+    content: "Actually having nightmares about css";
+    font-variant: small-caps;
+  }
+  100%{
+    font-size: 2.2em;
+    content: "Im extremly sleep deprived";
+  }
+}
+
+@keyframes bounce {
+  0% {
+      transform: scale(1.5) rotate(10deg);
+  }
+
+  100%{
+    transform: scale(1) rotate(-10deg);
+
+  }
+}
+
+@keyframes mouseanimation{
+  0%{
+    cursor: url("../img/mouse1.cur"), auto;
+  }
+  33%{
+    cursor: url("../img/mouse2.cur"), auto;
+  }
+  66%{
+    cursor: url("../img/mouse3.cur"), auto;
+  }
+  100%{
+    cursor: url("../img/mouse4.cur"), auto;
+  }
+}
+
