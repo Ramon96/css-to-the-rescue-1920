@@ -1,32 +1,76 @@
-html, body{
+html,
+body {
   margin: 0;
   font-size: 16px;
-  counter-reset: counter; 
+  counter-reset: counter;
   animation: mouseanimation 2s infinite;
   animation-direction: alternate;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-h1{
+h1 {
   text-align: center;
 }
 
-section{
+section {
   width: 100%;
   position: relative;
 }
 
-section h2{
+section h2 {
   text-align: center;
+  grid-area: header;
+}
+
+article {
+  position: relative;
+}
+
+article:first-of-type {
+  grid-area: fish;
+  justify-self: stretch;
+}
+
+article:last-of-type {
+  grid-area: crab;
 }
 
 /* Fish section */
-section:nth-of-type(1){
+section:nth-of-type(1) {
   background: linear-gradient(to top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
   height: 100vh;
+  display: grid;
+  grid-template-rows: max-content;
+  grid-template-columns: 2fr 2fr;
+  grid-template-areas:
+    "header header"
+    "crab fish"
+    ". code"
+    "fence chest";
+  justify-items: center;
+  align-items: flex-end;
+
+  /* grid-template-columns: 2fr 2fr; */
+}
+
+section:nth-of-type(1) article:first-of-type p:before {
+  content: "Blub Blub";
+  position: absolute;
+  display: block;
+  transform: scale(.5);
+  white-space: nowrap;
+  top: 0;
+  font-size: .2em;
 }
 
 
-section:nth-of-type(1) p:first-of-type::after{
+section:nth-of-type(1) article:first-of-type p:hover::before {
+  content: attr(data-line);
+}
+
+
+section:nth-of-type(1) article:first-of-type p::after {
   content: "🕶";
   position: absolute;
   display: block;
@@ -36,21 +80,15 @@ section:nth-of-type(1) p:first-of-type::after{
   opacity: 0;
   transition: opacity .8s;
 }
-section:nth-of-type(1) p:first-of-type:hover::before{
-  content: attr(data-line);
-  position: absolute;
-  top: -120px;
-  transform: scale(.5);
-  white-space: nowrap;
-  /* font-size: .5em; */
-}
 
-section:nth-of-type(1) p:first-of-type:hover::after{
+
+
+section:nth-of-type(1) article:first-of-type p:hover::after {
   opacity: 1;
 }
 
 /* the emoji on the left side */
-section p:first-of-type{
+section article:first-of-type p {
   font-size: 10em;
   margin: 0;
   position: absolute;
@@ -59,7 +97,7 @@ section p:first-of-type{
 }
 
 /* The fish emoji */
-section:nth-of-type(1) p:first-of-type{
+section:nth-of-type(1) article:first-of-type p {
   left: 20%;
   display: block;
   animation-name: fish;
@@ -67,27 +105,32 @@ section:nth-of-type(1) p:first-of-type{
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-  filter: hue-rotate(0deg);
+  filter: hue-rotate(200deg);
   transition: 4s;
 }
 
 /* Crab emoji */
-section:nth-of-type(1) p:nth-of-type(2){
+section:nth-of-type(1) article:nth-of-type(2) p {
   font-size: 10em;
   clip-path: circle(3%);
   position: absolute;
   bottom: 0;
   transition: .4s;
+  margin: 0;
 }
-span::before{
+
+em::before {
   content: "Dont hover the orange dot";
   position: absolute;
   top: 50%;
   left: 5%;
+  white-space: nowrap;
 }
 
 
-section:nth-of-type(1) p:nth-of-type(2):hover{
+
+
+section:nth-of-type(1) article:nth-of-type(2) p:hover {
   animation-name: bounce;
   animation-delay: .4s;
   animation-duration: .3s;
@@ -97,7 +140,7 @@ section:nth-of-type(1) p:nth-of-type(2):hover{
   transition: .3s;
 }
 
-section:nth-of-type(1) p:nth-of-type(2):hover ~ span::before{
+section:nth-of-type(1) article:nth-of-type(2) p:hover~em::before {
   animation-name: lines;
   animation-duration: 5s;
   animation-iteration-count: infinite;
@@ -105,7 +148,7 @@ section:nth-of-type(1) p:nth-of-type(2):hover ~ span::before{
 }
 
 
-section:nth-of-type(1) p:nth-of-type(2):hover{
+section:nth-of-type(1) article:nth-of-type(2) p:hover {
   clip-path: circle(100%)
 }
 
@@ -126,15 +169,18 @@ section:nth-last-of-type(1) div {
   animation-iteration-count: infinite;
   animation-timing-function: ease;
   -webkit-box-shadow: 0 0 30px #54a9ed;
-  right: 20%;
+  left: 30%;
   top: 50%;
+  transform: translate(-50%, -50%);
   color: white;
   opacity: 0;
-  transition: opacity .4s; 
+  transition: opacity .4s;
   backdrop-filter: hue-rotate(20deg);
   mix-blend-mode: color-dodge;
+  pointer-events: none;
 }
-section:nth-last-of-type(1) div ul{
+
+section:nth-last-of-type(1) div ul {
   /* padding: 2em; */
   position: relative;
   top: 50%;
@@ -145,43 +191,90 @@ section:nth-last-of-type(1) div ul{
   width: fit-content;
 }
 
-section:nth-last-of-type(1) div ul li{
+section:nth-last-of-type(1) div ul li {
   counter-increment: counter;
 
 }
 
-section:nth-last-of-type(1) div ul li::before{
+section:nth-last-of-type(1) div ul li::before {
   content: counter(counter);
 }
 
+/* dragable */
+span:last-of-type {
+  display: block;
+  position: relative;
+  height: 200px;
+  width: 200px;
+  grid-area: fence;
+}
+
+span:last-of-type::before {
+  all: unset;
+  content: "fishsticks";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%)
+}
+
+
+span:last-of-type div {
+  all: unset;
+  display: block;
+  border-radius: 15px 15px 0 0;
+  max-width: 200px;
+  max-height: 200px;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  resize: vertical;
+  position: relative;
+  /* I didn't create this pattern but this guy did: https://leaverou.github.io/css3patterns/#carbon */
+  background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+  background-color: #131313;
+  background-size: 20px 20px;
+}
+
+
+
 /* menu */
-input[type=checkbox]{
+input[type=checkbox] {
   display: none;
 }
 
-input[type=checkbox]:checked ~ div {
+input[type=checkbox]:checked~div {
   opacity: 1;
 }
 
-input[type=checkbox]:checked ~ label[for=chest]::after {
+input[type=checkbox]:checked~label[for=chest]::after {
   transform: rotate(-45deg);
 }
-label[for=chest]{
+
+label[for=chest] {
   width: 10em;
   height: 7em;
   background: #a16a1f;
   border: 5px #29241d solid;
   display: block;
-  position: absolute;
-  bottom: 0;
-  right: 30%;
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* right: 30%; */
+  pointer-events: none;
+  grid-area: chest;
 }
 
-label[for=chest]:hover{
+label[for=chest]:hover {
   cursor: pointer;
 }
 
-label[for=chest]::after{
+label[for=chest]::after {
   content: "";
   width: 10em;
   height: 2em;
@@ -195,34 +288,89 @@ label[for=chest]::after{
   transition: .3s;
 }
 
-/* Warm styles */
-.hot section:nth-of-type(1) p:first-of-type{
-  filter: hue-rotate(200deg);
+form {
+  background: #242424;
+  width: 300px;
+
+  position: relative;
+  grid-area: code;
 }
+
+
+form fieldset {
+  border-style: dashed;
+  /* width: 200px;
+  height: 200px; */
+  /* background: url("../img/kanye-west.png"); */
+
+}
+
+form:focus-within {
+  background: url(../img/kanye-west.png);
+  background-size: cover;
+
+}
+
+form:valid legend{
+ color: green;
+}
+
+form:invalid legend{
+ color: red;
+}
+
+form:valid~label[for=chest] {
+  pointer-events: initial;
+}
+
+
+
+
+
 
 /* animations */
 @keyframes menuBubble {
-  0% {transform: translateY(-40%);   -webkit-box-shadow: 0 0 30px #54a9ed;}
-  100% {transform:translateY(-60%); -webkit-box-shadow: 0 0 80px #69abdf;}
+  0% {
+    transform: translateY(-40%);
+    -webkit-box-shadow: 0 0 30px #54a9ed;
+  }
+
+  100% {
+    transform: translateY(-60%);
+    -webkit-box-shadow: 0 0 80px #69abdf;
+  }
 }
 
 @keyframes fish {
-  0% {transform: translateY(-60%);}
-  100% {transform:translateY(-40%);}
+  0% {
+    transform: translateY(-60%);
+  }
+
+  100% {
+    transform: translateY(-40%);
+  }
 }
 
 @keyframes lines {
   0% {
     content: "I feel stressed";
     font-size: 2em;
-    font-variant: small-caps slashed-zero;
-  }
-  50%{
-    font-size: 1.5em;
-    content: "Actually having nightmares about css";
     font-variant: small-caps;
   }
-  100%{
+
+  33% {
+    font-size: 1.5em;
+    content: "Actually having nightmares about css";
+    font-variant: slashed-zero;
+  }
+
+  66% {
+    font-size: 1.2em;
+    content: "I constantly overthink and worry about this subject";
+    font-variant: normal;
+  }
+
+  100% {
     font-size: 2.2em;
     content: "Im extremly sleep deprived";
   }
@@ -230,27 +378,44 @@ label[for=chest]::after{
 
 @keyframes bounce {
   0% {
-      transform: scale(1.5) rotate(10deg);
+    transform: scale(1.5) rotate(10deg);
   }
 
-  100%{
+  100% {
     transform: scale(1) rotate(-10deg);
 
   }
 }
 
-@keyframes mouseanimation{
-  0%{
+@keyframes mouseanimation {
+  0% {
     cursor: url("../img/mouse1.cur"), auto;
   }
-  33%{
+
+  33% {
     cursor: url("../img/mouse2.cur"), auto;
   }
-  66%{
+
+  66% {
     cursor: url("../img/mouse3.cur"), auto;
   }
-  100%{
+
+  100% {
     cursor: url("../img/mouse4.cur"), auto;
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+  }
+
+  section:nth-of-type(1) {
+    background: linear-gradient(to top, #2a2b2b 0%, #394b5a 50%, #d1d5d8 100%);
+  }
+
+   section:nth-of-type(1) article:first-of-type p {
+    text-shadow: 0px 0px 10px #f8fb26;
+    filter: hue-rotate(0);
+  }
+}
