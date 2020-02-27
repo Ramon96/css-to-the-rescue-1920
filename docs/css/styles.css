@@ -34,6 +34,7 @@ article:first-of-type {
 
 article:last-of-type {
   grid-area: crab;
+  perspective: 100px;
 }
 
 /* Fish section */
@@ -263,15 +264,23 @@ label[for=chest] {
   background: #a16a1f;
   border: 5px #29241d solid;
   display: block;
-  /* position: absolute; */
-  /* bottom: 0; */
-  /* right: 30%; */
   pointer-events: none;
   grid-area: chest;
+  position: relative;
 }
 
 label[for=chest]:hover {
   cursor: pointer;
+}
+
+label[for=chest]::before{
+  content: "Unlock the chest with the field above";
+  position: absolute;
+  display: block;
+  top: -4em;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 label[for=chest]::after {
@@ -378,11 +387,11 @@ form:valid~label[for=chest] {
 
 @keyframes bounce {
   0% {
-    transform: scale(1.5) rotate(10deg);
+    transform: scale(1.5) rotateY(10deg);
   }
 
   100% {
-    transform: scale(1) rotate(-10deg);
+    transform: scale(1) rotateY(-10deg);
 
   }
 }
