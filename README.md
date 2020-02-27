@@ -11,5 +11,25 @@ Ik ben begonnen met het template van het restaurant menu. Het idee was dat ik el
 
 ```css
 ::selection
-
+/* mouse animations */
+animate-direction
+counter-reset
+counter-increment
+grid-area
+place
+max-concent /* van css grid */
+grid-template-areas
+/* het gebruiken van data attributen in je content door middel van attr() */
+filert
+clip-path
+/* radial gradient */
+backdrop-filter
+mix-blend-mode
+all:unset
+/* de checkbox hack */
+:valid
+focus within
+perspective
+font-variant
+dark-mode
 ```
