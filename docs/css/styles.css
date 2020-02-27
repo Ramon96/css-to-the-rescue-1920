@@ -9,6 +9,11 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
+*::selection{
+  background: transparent;
+  text-shadow: 1px 1px 3px yellow;
+}
+
 h1 {
   text-align: center;
 }
