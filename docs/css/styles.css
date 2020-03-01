@@ -1,3 +1,13 @@
+@font-face {
+  font-family: fishFont;
+  src: url("../fonts/something-fishy.regular.ttf");
+}
+
+@font-face {
+  font-family: bubbly;
+  src: url("../fonts/PWBubbles.ttf");
+}
+
 html,
 body {
   margin: 0;
@@ -9,7 +19,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-*::selection{
+*::selection {
   background: transparent;
   text-shadow: 1px 1px 3px yellow;
 }
@@ -21,11 +31,94 @@ h1 {
 section {
   width: 100%;
   position: relative;
+  overflow: hidden;
+  animation: blurrEffect;
+  animation-iteration-count: infinite;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+section::after {
+  content: "";
+  height: 20px;
+  width: 100%;
+  display: block;
+  background: #f8f0a4;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+  border-radius: 50% 50% 0 0;
+
+}
+
+section div:first-of-type {
+  grid-area: header;
 }
 
 section h2 {
   text-align: center;
-  grid-area: header;
+  font-size: 0;
+}
+
+section h2 span,
+section h2 span:last-of-type {
+  all: unset;
+  font-size: 3rem;
+  animation-name: floatingLetters;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  display: inline-block;
+}
+
+section h2 span:hover {
+  font-family: fishFont;
+}
+
+section h2 span:nth-of-type(1) {
+  animation-delay: 1s;
+}
+
+section h2 span:nth-of-type(2) {
+  animation-delay: 1.2s;
+}
+
+section h2 span:nth-of-type(3) {
+  animation-delay: 1.3s;
+}
+
+section h2 span:nth-of-type(4) {
+  padding-right: 16px;
+  animation-delay: 1.4s;
+}
+
+section h2 span:nth-of-type(5) {
+  animation-delay: 1.5s;
+}
+
+section h2 span:nth-of-type(6) {
+  animation-delay: 1.6s;
+}
+
+section h2 span:nth-of-type(7) {
+  animation-delay: 1.7s;
+}
+
+section h2 span:nth-of-type(8) {
+  animation-delay: 1.8s;
+}
+
+section h2 span:nth-of-type(9) {
+  animation-delay: 1.9s;
+}
+
+section h2 span:nth-of-type(10) {
+  animation-delay: 2s;
+}
+
+section h2 span:last-of-type::before, section h2 span:last-of-type::after {
+  all: unset;
 }
 
 article {
@@ -37,9 +130,14 @@ article:first-of-type {
   justify-self: stretch;
 }
 
+article:nth-of-type(2) {
+  grid-area: bubble;
+}
+
 article:last-of-type {
   grid-area: crab;
   perspective: 100px;
+  height: 10px;
 }
 
 /* Fish section */
@@ -48,20 +146,28 @@ section:nth-of-type(1) {
   height: 100vh;
   display: grid;
   grid-template-rows: max-content;
-  grid-template-columns: 2fr 2fr;
-  grid-template-areas:
+  grid-template-columns: 2fr 2fr 2fr;
+  /* grid-template-areas:
     "header header"
     "crab fish"
     ". code"
-    "fence chest";
+    "fence chest"; */
+  grid-template-areas:
+    ". header ."
+    ". bubble fish"
+    "fence chest crab";
   justify-items: center;
   align-items: flex-end;
+
+
 
   /* grid-template-columns: 2fr 2fr; */
 }
 
+/* The grid ^^ */
+
 section:nth-of-type(1) article:first-of-type p:before {
-  content: "Blub Blub";
+  content: "Psst! over here..";
   position: absolute;
   display: block;
   transform: scale(.5);
@@ -111,32 +217,58 @@ section:nth-of-type(1) article:first-of-type p {
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-  filter: hue-rotate(200deg);
+  /* filter: hue-rotate(200deg); */
+  filter: drop-shadow(0px 0px 7px #54a9ed );
   transition: 4s;
 }
 
 /* Crab emoji */
-section:nth-of-type(1) article:nth-of-type(2) p {
-  font-size: 10em;
-  clip-path: circle(3%);
-  position: absolute;
-  bottom: 0;
-  transition: .4s;
+
+article:last-of-type p {
+  font-size: 8em;
   margin: 0;
+  transition: .4s;
+  transform: rotateX(20deg) translate(0em, 0px);
+  animation-name: goobyeCrab;
+  animation-delay: 4s;
+  animation-duration: 13s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  position: absolute;
+  z-index: 2;
+}
+article:last-of-type p img{
+width: 120px;
+height: 100px;
+}
+/* Crab lines */
+em {
+  opacity: 0;
+  animation-name: sayGoodbye;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
 }
 
 em::before {
-  content: "Dont hover the orange dot";
+  content: "Goodbye Crab";
   position: absolute;
   top: 50%;
   left: 5%;
   white-space: nowrap;
+
 }
 
-
-
-
-section:nth-of-type(1) article:nth-of-type(2) p:hover {
+/* article:last-of-type p {
+  font-size: 8em;
+  clip-path: circle(3%);
+  position: absolute;
+  top: 50%;
+  transition: .4s;
+  margin: 0;
+} */
+/* 
+article:last-of-type p:hover {
   animation-name: bounce;
   animation-delay: .4s;
   animation-duration: .3s;
@@ -144,28 +276,33 @@ section:nth-of-type(1) article:nth-of-type(2) p:hover {
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
   transition: .3s;
+  clip-path: circle(100%)
+
 }
 
-section:nth-of-type(1) article:nth-of-type(2) p:hover~em::before {
+article:last-of-type p:hover~em::before {
   animation-name: lines;
   animation-duration: 5s;
   animation-iteration-count: infinite;
   transition: .4s;
-}
+} */
 
 
-section:nth-of-type(1) article:nth-of-type(2) p:hover {
-  clip-path: circle(100%)
-}
+
+
+
+
 
 
 
 /* The bubble */
-section:nth-last-of-type(1) div {
-  /* border: solid 1px rgb(231, 254, 255); */
+article div {
+  text-align: center;
+  font-family: bubbly;
   border-radius: 50%;
   width: 17em;
   height: 17em;
+  left: -8.5em;
   position: absolute;
   zoom: 100%;
   background: radial-gradient(ellipse at center, rgba(208, 36, 36, 0) 50%, #54a9ed 100%);
@@ -175,7 +312,6 @@ section:nth-last-of-type(1) div {
   animation-iteration-count: infinite;
   animation-timing-function: ease;
   -webkit-box-shadow: 0 0 30px #54a9ed;
-  left: 30%;
   top: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -186,7 +322,7 @@ section:nth-last-of-type(1) div {
   pointer-events: none;
 }
 
-section:nth-last-of-type(1) div ul {
+article div ul {
   /* padding: 2em; */
   position: relative;
   top: 50%;
@@ -197,12 +333,12 @@ section:nth-last-of-type(1) div ul {
   width: fit-content;
 }
 
-section:nth-last-of-type(1) div ul li {
+article div ul li {
   counter-increment: counter;
 
 }
 
-section:nth-last-of-type(1) div ul li::before {
+article div ul li::before {
   content: counter(counter);
 }
 
@@ -213,39 +349,73 @@ span:last-of-type {
   height: 200px;
   width: 200px;
   grid-area: fence;
+
+
+
 }
+
 
 span:last-of-type::before {
   all: unset;
   content: "fishsticks";
   display: block;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 60%;
+  top: 74%;
   transform: translate(-50%, -50%)
 }
 
+section  span:last-of-type::after{
+  all:unset;
+  content: "";
+  display: block;
+  width: 245px;
+  height: 200px;
+  background: url("../img/Cave.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  z-index: 10;
+  /* 
+  width: 245px;
+  height: 200px;
+  background: url("../img/Cave.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 5;
+
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) */
+}
 
 span:last-of-type div {
   all: unset;
   display: block;
   border-radius: 15px 15px 0 0;
-  max-width: 200px;
-  max-height: 200px;
-  width: 200px;
-  height: 200px;
+  max-width: 100px;
+  max-height: 90px;
+  width: 100px;
+  height: 90px;
   overflow: hidden;
   resize: vertical;
   position: relative;
+  transform: translate(68px, 92px);
   /* I didn't create this pattern but this guy did: https://leaverou.github.io/css3patterns/#carbon */
-  background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+  /* background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
     linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
     linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
     linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
     linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
     linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #131313;
-  background-size: 20px 20px;
+  background-color: #131313; */
+  /* background-size: 20px 20px; */
+  background: #4a4a4a;
+  z-index: 2;
 }
 
 
@@ -255,7 +425,7 @@ input[type=checkbox] {
   display: none;
 }
 
-input[type=checkbox]:checked~div {
+input[type=checkbox]:checked~article div {
   opacity: 1;
 }
 
@@ -266,19 +436,22 @@ input[type=checkbox]:checked~label[for=chest]::after {
 label[for=chest] {
   width: 10em;
   height: 7em;
-  background: #a16a1f;
-  border: 5px #29241d solid;
+
   display: block;
   pointer-events: none;
   grid-area: chest;
   position: relative;
+  z-index: 2;
+
+  background-image: url("../img/chest_base.png");
+  background-repeat: no-repeat;
 }
 
 label[for=chest]:hover {
   cursor: pointer;
 }
 
-label[for=chest]::before{
+label[for=chest]::before {
   content: "Unlock the chest with the field above";
   position: absolute;
   display: block;
@@ -291,32 +464,65 @@ label[for=chest]::before{
 label[for=chest]::after {
   content: "";
   width: 10em;
-  height: 2em;
-  background: #a16a1f;
-  border: 5px #29241d solid;
+  height: 7em;
   position: relative;
-  top: -2em;
-  left: -5px;
+  top: -3em;
+  /* left: -5px; */
   display: block;
-  transform-origin: left 82%;
+  transform-origin: left 45%;
   transition: .3s;
+
+  background: url("../img/chest_roof.png");
+  background-repeat: no-repeat;
+
+
 }
 
-form {
-  background: #242424;
-  width: 300px;
+/* Unclock form */
 
-  position: relative;
-  grid-area: code;
+form {
+  /* background: red; */
+  width: 300px;
+  position: absolute;
+  top: 20%;
+}
+
+form legend {
+  text-align: center;
+  font-weight: bold;
+  /* font-family: fishFont; */
+  font-size: 1.4em;
+
+}
+
+form:valid legend::after {
+  color: green;
+  content: "unlocked";
+
+}
+
+form:invalid legend::after {
+  color: red;
+  content: "locked";
 }
 
 
 form fieldset {
-  border-style: dashed;
-  /* width: 200px;
-  height: 200px; */
-  /* background: url("../img/kanye-west.png"); */
+  border: none;
+}
 
+form input {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  border-bottom: solid 1px white;
+
+}
+
+form input::placeholder {
+  color: white
 }
 
 form:focus-within {
@@ -325,24 +531,169 @@ form:focus-within {
 
 }
 
-form:valid legend{
- color: green;
-}
-
-form:invalid legend{
- color: red;
-}
 
 form:valid~label[for=chest] {
   pointer-events: initial;
 }
 
+/* background animations */
+
+header {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+header div:nth-of-type(1) {
+  position: relative;
+  transform: translateX(100%);
+  animation: fishSchool1 6s 4s infinite ease-in, fishSchool1Float .8s infinite ease-in-out alternate;
+}
+
+header div:nth-of-type(2) {
+  position: relative;
+  transform: translateX(100%);
+  animation: fishSchool2 6s 2s infinite ease-in, fishSchool2Float .8s infinite ease-in-out alternate;
+}
+
+header div:nth-of-type(2) img{
+transform: scale(-1);
+}
+header div:nth-of-type(2) img:nth-of-type(2){
+  transform: translate(20px, 10px) scale(-1);
+}
+header div:nth-of-type(2) img:nth-of-type(3){
+  transform: translate(20px, -10px) scale(-1);
+}
+
+header img {
+  width: 40px;
+  position: absolute;
+  opacity: .3;
+}
 
 
+header img:nth-of-type(2) {
+  transform: translate(20px, 10px) scale(1);
 
+}
+
+header img:nth-of-type(3) {
+  transform: translate(20px, -10px) scale(1);
+}
+
+
+/* Seaweed */
+footer {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+}
+
+footer div {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  clip-path: polygon(50% 0%, 61% 28%, 68% 40%, 74% 67%, 68% 100%, 53% 100%, 63% 77%, 60% 50%, 50% 16%);
+  background-color: green;
+  animation-name: seaWeedDance;
+  /* animation-direction: alternate; */
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+}
+
+
+footer div:nth-of-type(1) {
+  left: 20%;
+}
+
+footer div:nth-of-type(2) {
+  left: 18%;
+  animation-delay: 1s;
+}
+
+footer div:nth-of-type(3) {
+  right: 18%;
+  animation-delay: 2s;
+}
+
+footer div:nth-of-type(4) {
+  right: 20%;
+  animation-delay: .5s;
+}
 
 
 /* animations */
+@keyframes fishSchool1 {
+  from{
+    transform: translateX(100%);
+  }
+  to{
+    transform: translateX(0);
+
+  }
+}
+
+@keyframes fishSchool1Float{
+  from{
+     top: 55%;
+  }
+  to{
+    top: 45%;
+  }
+}
+
+@keyframes fishSchool2 {
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(100%);
+
+  }
+}
+
+@keyframes fishSchool2Float{
+  from{
+     top: 80%;
+  }
+  to{
+    top: 70%;
+  }
+}
+@keyframes seaWeedDance {
+  0% {
+    clip-path: polygon(50% 0%, 61% 28%, 68% 40%, 74% 67%, 68% 100%, 53% 100%, 63% 77%, 60% 50%, 50% 16%);
+
+  }
+
+  33% {
+    clip-path: polygon(73% 5%, 68% 28%, 68% 41%, 78% 68%, 68% 100%, 53% 100%, 70% 73%, 58% 36%, 59% 15%);
+  }
+
+  66% {
+    /* clip-path: polygon(73% 5%, 68% 28%, 68% 41%, 78% 68%, 68% 100%, 53% 100%, 70% 73%, 58% 36%, 59% 15%); */
+
+    clip-path: polygon(47% 2%, 61% 22%, 61% 36%, 77% 57%, 68% 100%, 53% 100%, 66% 69%, 56% 44%, 51% 34%);
+  }
+
+  100% {
+    clip-path: polygon(50% 0%, 61% 28%, 68% 40%, 74% 67%, 68% 100%, 53% 100%, 63% 77%, 60% 50%, 50% 16%);
+
+  }
+}
+
+@keyframes floatingLetters {
+  0% {
+    transform: translateY(0em);
+  }
+
+  100% {
+    transform: translateY(1em);
+  }
+}
+
+
 @keyframes menuBubble {
   0% {
     transform: translateY(-40%);
@@ -390,7 +741,39 @@ form:valid~label[for=chest] {
   }
 }
 
-@keyframes bounce {
+@keyframes goobyeCrab {
+  0% {
+    transform: rotateX(20deg) translate(0em, 0px);
+
+  }
+
+  1% {
+    transform: rotateX(0deg) translate(0em, 0px);
+
+  }
+
+  20% {
+    transform: rotateX(0deg) translate(0em, 0px);
+  }
+
+  20%,
+  100% {
+    transform: rotateX(0deg) translate(10em, 0px);
+  }
+}
+
+@keyframes sayGoodbye {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* @keyframes bounce {
   0% {
     transform: scale(1.5) rotateY(10deg);
   }
@@ -399,7 +782,7 @@ form:valid~label[for=chest] {
     transform: scale(1) rotateY(-10deg);
 
   }
-}
+} */
 
 @keyframes mouseanimation {
   0% {
@@ -419,7 +802,26 @@ form:valid~label[for=chest] {
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@keyframes blurrEffect {
+  0% {
+    filter: blur(0px);
+  }
+
+  1% {
+    filter: blur(2px);
+  }
+
+  50% {
+    filter: blur(0px);
+
+  }
+
+  100% {
+    filter: blur(0px);
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
   body {
     background: black;
   }
@@ -432,4 +834,4 @@ form:valid~label[for=chest] {
     text-shadow: 0px 0px 10px #f8fb26;
     filter: hue-rotate(0);
   }
-}
+} */
