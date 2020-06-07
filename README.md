@@ -49,3 +49,6 @@ Ook heb ik geleerd om niet teveel in je concept te blijven hangen. Als je een co
 een grid met percentages uitbouwen: https://medium.com/@danwebb/how-to-build-complicated-grids-using-css-grid-609b1197cf75 
 
 Meer typografische css uitproberen. Ik ben er recent achter gekomen dat css op topografie een grote wereld is die naar mij mening nog niet veel verkent is en dat de mogelijkheden met typografie verder gaat dan je fantasie doet denken
+
+## Credits
+Big thanks to Isabel Mik for helping me out with the art-work and design
